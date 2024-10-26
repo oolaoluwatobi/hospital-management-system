@@ -10,8 +10,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Control, FieldValue, FieldValues } from "react-hook-form";
-import { FormFieldTypes } from "./PatientForm";
+// import { FormFieldTypes } from "./PatientForm";
 import Image from "next/image";
+
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import { FormFieldTypes } from "./forms/RegisterForm";
+
+import calender from "@/public/assets/icons/calendar.svg";
 
 interface CustomProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -27,7 +33,7 @@ interface CustomProps {
   dateFormat?: string;
   showTimeSelect?: boolean;
   children?: React.ReactNode;
-  renderSkeleton?: (field: string | number) => React.ReactNode;
+  renderSkeleton?: (field: any) => React.ReactNode;
 }
 
 const RenderInputField = ({
@@ -63,7 +69,7 @@ const RenderInputField = ({
               alt={iconAlt || "icon"}
               width={24}
               height={24}
-              className="ml-2"
+              className="ml-2 "
             />
           )}
           <FormControl>
@@ -73,36 +79,39 @@ const RenderInputField = ({
               name={name}
               placeholder={placeholder}
               disabled={disabled}
-              className="shad-input border-0"
+              className="shad-input border-0  "
             />
           </FormControl>
         </div>
       );
     case FormFieldTypes.PHONE_INPUT:
       return (
-        <div className="flex rounded-md border border-dark-500 bg-dark-400">
-          {iconSrc && (
-            <Image
-              src={iconSrc}
-              alt={iconAlt || "icon"}
-              width={24}
-              height={24}
-              className="ml-2"
-            />
-          )}
-          <FormControl>
-            <Input
-              {...field}
-              control={control}
-              name={name}
-              placeholder={placeholder}
-              disabled={disabled}
-              className="shad-input border-0"
-            />
-          </FormControl>
+        <FormControl>
+          <PhoneInput
+            defaultCountry="NG"
+            placeholder={placeholder}
+            international
+            withCountryCallingCode
+            value={field.value}
+            onChange={field.onChange}
+            // onChange={(value) => field.onChange(value)}
+            className="input-phone "
+          />
+        </FormControl>
+      );
+    case FormFieldTypes.DATE_PICKER:
+      return (
+        <div className="">
+          <Image
+            src={calender}
+            alt="calendar"
+            width={24}
+            height={24}
+            className="ml-2 "
+          />
+          <FormControl></FormControl>
         </div>
       );
-      break;
     default:
       break;
   }
