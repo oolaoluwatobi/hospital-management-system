@@ -1,3 +1,17 @@
+import drGreen from "/src/public/assets/images/dr-green.png";
+import drCameron from "@/public/assets/images/dr-cameron.png";
+import drLivinston from "/src/public/assets/images/dr-livingston.png";
+import drPeter from "@/public/assets/images/dr-peter.png";
+import drPowell from "@/public/assets/images/dr-powell.png";
+import drRemirez from "@/public/assets/images/dr-remirez.png";
+import drLee from "@/public/assets/images/dr-lee.png";
+import drCruz from "@/public/assets/images/dr-cruz.png";
+import drSharma from "@/public/assets/images/dr-sharma.png";
+
+import scheduleIcon from "@/public/assets/icons/check.svg";
+import pendingIcon from "/src/public/assets/icons/pending.svg";
+import cancelledIcon from "/src/public/assets/icons/cancelled.svg";
+
 export const GenderOptions = ["Male", "Female", "Other"];
 
 export const PatientFormDefaultValues = {
@@ -29,58 +43,58 @@ export const PatientFormDefaultValues = {
 export const IdentificationTypes = [
   "Birth Certificate",
   "Driver's License",
-  "Medical Insurance Card/Policy",
+  // "Medical Insurance Card/Policy",
   "Military ID Card",
   "National Identity Card",
   "Passport",
-  "Resident Alien Card (Green Card)",
-  "Social Security Card",
-  "State ID Card",
+  // "Resident Alien Card (Green Card)",
+  // "Social Security Card",
+  // "State ID Card",
   "Student ID Card",
   "Voter ID Card",
 ];
 
 export const Doctors = [
   {
-    image: "/assets/images/dr-green.png",
+    image: drGreen,
     name: "John Green",
   },
   {
-    image: "/assets/images/dr-cameron.png",
+    image: drCameron,
     name: "Leila Cameron",
   },
   {
-    image: "/assets/images/dr-livingston.png",
+    image: drLivinston,
     name: "David Livingston",
   },
   {
-    image: "/assets/images/dr-peter.png",
+    image: drPeter,
     name: "Evan Peter",
   },
   {
-    image: "/assets/images/dr-powell.png",
+    image: drPowell,
     name: "Jane Powell",
   },
   {
-    image: "/assets/images/dr-remirez.png",
+    image: drRemirez,
     name: "Alex Ramirez",
   },
   {
-    image: "/assets/images/dr-lee.png",
+    image: drLee,
     name: "Jasmine Lee",
   },
   {
-    image: "/assets/images/dr-cruz.png",
+    image: drCruz,
     name: "Alyana Cruz",
   },
   {
-    image: "/assets/images/dr-sharma.png",
+    image: drSharma,
     name: "Hardik Sharma",
   },
 ];
 
 export const StatusIcon = {
-  scheduled: "/assets/icons/check.svg",
-  pending: "/assets/icons/pending.svg",
-  cancelled: "/assets/icons/cancelled.svg",
+  scheduled: scheduleIcon,
+  pending: pendingIcon,
+  cancelled: cancelledIcon,
 };
