@@ -71,10 +71,10 @@ const PatientForm = () => {
 
       console.log(userData);
       const user = await createUser(userData);
-      console.log(user);
+      console.log(user, user.id, user.$id, "new user created");
 
       if (user) {
-        router.push(`/patients/${user.id}/register`);
+        router.push(`/patients/${user.$id}/register`);
       }
 
       setIsLoading(false);

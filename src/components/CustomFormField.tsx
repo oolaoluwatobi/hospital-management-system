@@ -2,14 +2,14 @@
 
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
+  // FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Control, FieldValue, FieldValues } from "react-hook-form";
+import { Control, FieldValues } from "react-hook-form";
 // import { FormFieldTypes } from "./PatientForm";
 import Image from "next/image";
 
@@ -24,6 +24,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 import { Textarea } from "./ui/textarea";
+import { Checkbox } from "./ui/checkbox";
 
 interface CustomProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -53,16 +54,16 @@ const RenderInputField = ({
     control,
     fieldType,
     name,
-    label,
     placeholder,
-    description,
     iconSrc,
     iconAlt,
     disabled,
     dateFormat,
     showTimeSelect,
-    children,
     renderSkeleton,
+    // label,
+    // description,
+    // children,
   } = props;
 
   switch (fieldType) {
@@ -156,6 +157,23 @@ const RenderInputField = ({
           />
         </FormControl>
       );
+    case FormFieldTypes.CHECKBOX:
+      return (
+        <FormControl>
+          <div className="flex items-center gap-4">
+            <Checkbox
+              id={name}
+              {...field}
+              checked={field.value}
+              onCheckedChange={field.onChange}
+              // className="shad-checkbox"
+            />
+            <label htmlFor={props.name} className="checkbox-label">
+              {props.label}
+            </label>
+          </div>
+        </FormControl>
+      );
     default:
       break;
   }
@@ -167,15 +185,15 @@ const CustomFormField = (props: CustomProps) => {
     fieldType,
     name,
     label,
-    placeholder,
-    description,
-    iconSrc,
-    iconAlt,
-    disabled,
-    dateFormat,
-    showTimeSelect,
-    children,
-    renderSkeleton,
+    // placeholder,
+    // description,
+    // iconSrc,
+    // iconAlt,
+    // disabled,
+    // dateFormat,
+    // showTimeSelect,
+    // children,
+    // renderSkeleton,
   } = props;
 
   return (

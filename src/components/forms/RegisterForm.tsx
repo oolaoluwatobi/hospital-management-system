@@ -10,18 +10,24 @@ import { Form, FormControl } from "@/components/ui/form";
 import userIcon from "@/public/assets/icons/user.svg";
 import emailIcon from "@/public/assets/icons/email.svg";
 import SubmitButton from "../SubmitButton";
-import { UserFormValidation } from "@/lib/validation";
+import { PatientFormValidation } from "@/lib/validation";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createUser } from "@/lib/actions/patient.action";
+// import { createUser } from "@/lib/actions/patient.action";
 import CustomFormField from "../CustomFormField";
 import { RadioGroup } from "@radix-ui/react-radio-group";
-import { Doctors, GenderOptions, IdentificationTypes } from "@/constants";
+import {
+  Doctors,
+  GenderOptions,
+  IdentificationTypes,
+  PatientFormDefaultValues,
+} from "@/constants";
 import { RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
 import FileUploader from "../FileUploader";
+import { registerPatient } from "@/lib/actions/patient.action";
 // import { Input } from "@/components/ui/input";
 
 export enum FormFieldTypes {
@@ -34,7 +40,7 @@ export enum FormFieldTypes {
   SKELETON = "skeleton",
 }
 
-// const UserFormValidation = z.object({
+// const PatientFormValidation = z.object({
 //   name: z.string().min(2, {
 //     message: "Username must be at least 2 characters.",
 //   }),
@@ -51,43 +57,71 @@ const RegisterForm = ({ user }: { user: User }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // const [error, setError] = useState<string | null>(null);
 
+  // console.log(user, "user register form");
+
   // 1. Define your form.
-  const form = useForm<z.infer<typeof UserFormValidation>>({
-    resolver: zodResolver(UserFormValidation),
+  const form = useForm<z.infer<typeof PatientFormValidation>>({
+    resolver: zodResolver(PatientFormValidation),
     defaultValues: {
+      ...PatientFormDefaultValues,
       name: "",
       phone: "",
       email: "",
     },
   });
 
+  console.log(isLoading, "loading state");
+
   // 2. Define a submit handler.
-  async function onSubmit({
-    name,
-    phone,
-    email,
-  }: z.infer<typeof UserFormValidation>) {
+  async function onSubmit(values: z.infer<typeof PatientFormValidation>) {
     setIsLoading(true);
 
+    console.log(values, "values register form");
+
+    let formData: FormData;
+
+    if (
+      values.identificationDocument &&
+      values.identificationDocument.length > 0
+    ) {
+      const blobFile = new Blob([values.identificationDocument[0]], {
+        type: values.identificationDocument[0].type,
+      });
+
+      formData = new FormData();
+      formData.append("blobFIle", blobFile);
+      formData.append("fileName", values.identificationDocument[0].name);
+      // formData.append("identificationDocument", blobFile);
+
+      // formData = new FormData();
+      // values.identificationDocument.forEach((file) => {
+      //   formData.append("identificationDocument", file);
+      // });
+    }
+
+    console.log(values.email, "values passed formData ");
     try {
-      const userData = {
-        name,
-        phone,
-        email,
+      const patientData = {
+        ...values,
+        userId: user.$id,
+        birthDate: new Date(values.birthDate),
+        //@ts-expect-error // #check_this
+        identificationDocument: formData,
       };
 
-      console.log(userData);
-      const user = await createUser(userData);
-      console.log(user);
+      //@ts-expect-error // #check_this
+      const patient = await registerPatient(patientData);
+      // console.log(patientData);
+      // console.log(patient);
 
-      if (user) {
-        router.push(`/Registers/${user.id}/register`);
+      if (patient) {
+        router.push(`/patients/${user.$id}/new-appointment`);
       }
 
-      setIsLoading(false);
+      // setIsLoading(false);
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   }
 
@@ -222,7 +256,7 @@ const RegisterForm = ({ user }: { user: User }) => {
           <CustomFormField
             fieldType={FormFieldTypes.PHONE_INPUT}
             control={form.control}
-            name="emergencyContactPhoneNumber"
+            name="emergencyContactNumber"
             label="Emergency Contact phone number"
             // placeholder="2348101234567"
             // iconAlt="email"
@@ -320,9 +354,7 @@ const RegisterForm = ({ user }: { user: User }) => {
         {/* identification and verification info */}
         <section className="space-y-6">
           <div className="mb-9 space-y-1">
-            <h2 className="sub-header">
-              Identification and Verification Information
-            </h2>
+            <h2 className="sub-header">Identification and Verification</h2>
           </div>
         </section>
 
@@ -358,6 +390,32 @@ const RegisterForm = ({ user }: { user: User }) => {
               <FileUploader files={field.value} onChange={field.onChange} />
             </FormControl>
           )}
+        />
+
+        {/* Consent and Privacy */}
+        <section className="space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Consent and Privacy</h2>
+          </div>
+        </section>
+
+        <CustomFormField
+          fieldType={FormFieldTypes.CHECKBOX}
+          control={form.control}
+          name="treatmentConsent"
+          label="I consent to treatment"
+        />
+        <CustomFormField
+          fieldType={FormFieldTypes.CHECKBOX}
+          control={form.control}
+          name="disclosureConsent"
+          label="I consent to disclosure of my medical information"
+        />
+        <CustomFormField
+          fieldType={FormFieldTypes.CHECKBOX}
+          control={form.control}
+          name="privacyConsent"
+          label="I consent to privacy policy"
         />
 
         <div className="flex flex-col gap-6 xl:flex-row"></div>
