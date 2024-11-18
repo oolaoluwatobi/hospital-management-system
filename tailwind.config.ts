@@ -93,9 +93,9 @@ const config = {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       backgroundImage: {
-        appointments: "url('/assets/images/appointments-bg.png')",
-        pending: "url('/assets/images/pending-bg.png')",
-        cancelled: "url('/assets/images/cancelled-bg.png')",
+        appointments: "linear-gradient(to right, #ff7e5f17, #ff7e5f00)",
+        pending: "linear-gradient(to right, #6a11cb17, #6a11cb00)",
+        cancelled: "linear-gradient(to right, #ff4b1f17, #ff4b1f00)",
       },
       keyframes: {
         "accordion-down": {
