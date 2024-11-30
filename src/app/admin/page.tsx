@@ -9,7 +9,9 @@ import cancelled from "@/public/assets/icons/cancelled.svg";
 import StatCard from "@/components/StatCard";
 import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
 import { DataTable } from "@/components/table/DataTable";
-import { columns, Payment } from "@/components/table/Columns";
+import { columns, Payment } from "@/components/table/columns";
+import DataTableDemo from "@/components/table/DataTableDemo";
+// import { columns, Payment } from "@/components/table";
 
 const Admin = async () => {
   const appointments = await getRecentAppointmentList();
@@ -34,6 +36,12 @@ const Admin = async () => {
       </header>
 
       <main className="admin-main">
+        <section className="w-full space-y-4">
+          <h1 className="header">Welcome 👋🏾</h1>
+          <p className="text-dark-700">
+            Srart the day with managing appointments
+          </p>
+        </section>
         <section className="admin-stat">
           <StatCard
             type="appointments"
@@ -55,6 +63,7 @@ const Admin = async () => {
           />
         </section>
 
+        <DataTableDemo />
         <DataTable columns={columns} data={data} />
         {/* <DataTable columns={columns} data={appointments.data} /> */}
       </main>
