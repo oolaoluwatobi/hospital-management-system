@@ -9,15 +9,14 @@ import cancelled from "@/public/assets/icons/cancelled.svg";
 import StatCard from "@/components/StatCard";
 import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
 import { DataTable } from "@/components/table/DataTable";
-import { columns, Payment } from "@/components/table/columns";
+import { columns } from "@/components/table/columns";
 import DataTableDemo from "@/components/table/DataTableDemo";
 // import { columns, Payment } from "@/components/table";
 
 const Admin = async () => {
   const appointments = await getRecentAppointmentList();
-  const data = await getData();
 
-  console.log(appointments);
+  console.log(appointments, "appointments");
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
@@ -64,24 +63,10 @@ const Admin = async () => {
         </section>
 
         <DataTableDemo />
-        <DataTable columns={columns} data={data} />
-        {/* <DataTable columns={columns} data={appointments.data} /> */}
+        <DataTable columns={columns} data={appointments.documents} />
       </main>
     </div>
   );
 };
 
 export default Admin;
-
-async function getData(): Promise<Payment[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    // ...
-  ];
-}

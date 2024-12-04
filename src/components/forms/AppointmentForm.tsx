@@ -26,12 +26,14 @@ import { createAppointment } from "@/lib/actions/appointment.actions";
 export const AppointmentForm = ({
   userId,
   patientId,
+  patient,
   type = "create",
 }: // appointment,
 // setOpen,
 {
   userId: string;
   patientId: string;
+  patient: string;
   type: "create" | "schedule" | "cancel";
   appointment?: Appointment;
   setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -79,6 +81,7 @@ export const AppointmentForm = ({
         console.log("submitting 2");
         const appointmentData = {
           userId,
+          patient: patient,
           patientId,
           primaryPhysician: values.primaryPhysician,
           schedule: new Date(values.schedule),

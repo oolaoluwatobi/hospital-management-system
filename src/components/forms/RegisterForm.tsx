@@ -109,10 +109,10 @@ const RegisterForm = ({ user }: { user: User }) => {
         identificationDocument: formData,
       };
 
+      console.log(patientData);
       //@ts-expect-error // #check_this
       const patient = await registerPatient(patientData);
-      // console.log(patientData);
-      // console.log(patient);
+      console.log(patient);
 
       if (patient) {
         router.push(`/patients/${user.$id}/new-appointment`);
@@ -245,7 +245,7 @@ const RegisterForm = ({ user }: { user: User }) => {
           <CustomFormField
             fieldType={FormFieldTypes.INPUT}
             control={form.control}
-            name="emergencyContactName"
+            name="emergencyContact"
             label="Emergency Contact name"
             placeholder="Emergency Contact name"
             iconAlt="address"

@@ -51,13 +51,17 @@ export const getUser = async (userId: string) => {
 };
 
 export const getPatient = async (userId: string) => {
+  console.log(userId, "userId");
+
+  console.log(DATABASE_ID!, PATIENT_COLLECTION_ID!);
+
   try {
     const patients = await databases.listDocuments(
       DATABASE_ID!,
       PATIENT_COLLECTION_ID!,
       [Query.equal("userId", userId)]
     );
-    // console.log(patients, "patients");
+    console.log(patients, "patients");
     return parseStringify(patients.documents[0]);
   } catch (error) {
     console.log(error);
