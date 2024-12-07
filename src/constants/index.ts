@@ -12,7 +12,7 @@ import scheduleIcon from "@/public/assets/icons/check.svg";
 import pendingIcon from "/src/public/assets/icons/pending.svg";
 import cancelledIcon from "/src/public/assets/icons/cancelled.svg";
 
-export const GenderOptions = ["male", "female", "other"];
+export const GenderOptions = ["Male", "Female", "Other"];
 
 export const PatientFormDefaultValues = {
   firstName: "",

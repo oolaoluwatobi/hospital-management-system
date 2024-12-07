@@ -345,7 +345,7 @@ const RegisterForm = ({ user }: { user: User }) => {
           <CustomFormField
             fieldType={FormFieldTypes.TEXTAREA}
             control={form.control}
-            name="pastMedicalHistory"
+            name="medicalHistory"
             label="Past Medical History"
             placeholder="ex: Asthma diagnosis in childhood"
           />

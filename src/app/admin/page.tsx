@@ -38,7 +38,7 @@ const Admin = async () => {
         <section className="w-full space-y-4">
           <h1 className="header">Welcome 👋🏾</h1>
           <p className="text-dark-700">
-            Srart the day with managing appointments
+            Start the day with managing appointments
           </p>
         </section>
         <section className="admin-stat">
